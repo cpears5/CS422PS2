@@ -4,8 +4,9 @@
 }
 
 .block {
-  outline: 1px solid red;
-  
+  outline: 1px solid gray;
+  width: 20px;
+  height: 20px;
 }
 #gameContainer {
   display: flex;
