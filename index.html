@@ -118,8 +118,10 @@ $(board).on('scoreUpdate', function(e, info)
 });
 
 // Button Events
-$(document).on('click', "#new", function(evt)
+$(document).on('click', "#newGameButton", function(evt)
 {
+  console.log('deezz');
+  rules.prepareNewGame();
   // Your code here.
 });
 
@@ -144,7 +146,7 @@ $(document).on('keydown', function(evt) {
       <div>
       <!-- Column 1 Code Here -->
       <h1 style="color: red;">Candy Crush</h1>
-      <button class="btn" id="newGameButton" onclick="rules.prepareNewGame()">New Game</button>
+      <button class="btn" id="newGameButton">New Game</button>
       </div>
   </div>
 
