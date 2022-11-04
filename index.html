@@ -91,6 +91,7 @@ $(document).ready(function()
 // add a candy to the board
 $(board).on('add', function(e, info)
 {
+  console.log('deez');
   const gameContainer = document.getElementById('gameContainer');
     const newBlock = document.createElement('td');
     newBlock.classList.add('block');
