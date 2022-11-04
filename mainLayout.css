@@ -1,9 +1,5 @@
-#mainColumn {
-  outline: 1px dashed orange;
-  width: 320px;
-  height: 320px;
-  display: flex;
-  flex-wrap: wrap;
+.col-md-4 {
+  width: 100%;
 }
 
 .block {
