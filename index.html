@@ -16,8 +16,8 @@ Collaborators:
 <title>CandyCrush</title>
 
 <!-- Load style sheets -->
-<!-- <link rel="stylesheet" href=
-  "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css"> -->
+<link rel="stylesheet" href=
+  "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css">
 
 <link rel="stylesheet" href="mainLayout.css">
 
@@ -41,7 +41,6 @@ Collaborators:
 // each time you load (which is accomplished by "seeding" the random
 // number generator. This makes testing (and grading!) easier!
 Math.seedrandom(0);
-
 
 // A short jQuery extension to read query parameters from the URL.
 $.extend({
@@ -92,6 +91,10 @@ $(document).ready(function()
 // add a candy to the board
 $(board).on('add', function(e, info)
 {
+  const gameContainer = document.getElementById('gameContainer');
+    const newBlock = document.createElement('td');
+    newBlock.classList.add('block');
+    gameContainer.appendChild(newBlock);
   // Your code here.
 });
 
@@ -124,17 +127,7 @@ $(document).on('keydown', function(evt) {
   // Your code here.
 });
 
-function newGame() {
 
-  for (let i=0; i < 64; i ++) {
-    const gameContainer = document.getElementById('gameContainer');
-    const newBlock = document.createElement('div');
-    newBlock.classList.add('block');
-    gameContainer.appendChild(newBlock);
-
-    // TODO: dynamic innerhtml
-  }
-}
 
 
 </script>
@@ -150,14 +143,14 @@ function newGame() {
       <div>
       <!-- Column 1 Code Here -->
       <h1>Candy Crush</h1>
-      <button id="newGameButton" onclick="newGame()">New Game</button>
+      <input class="btn" id="newGameButton" onclick="rules.prepareNewGame()">New Game</button>
       </div>
   </div>
 
     <div class="col-md-4" id="mainColumn">
       <!-- Column 2 Code Here -->
-      <div id="gameContainer">
-      </div>
+      <table id="gameContainer">
+      </table>
     </div>
 
     <div class="col-md-4" id="lastColumn">
