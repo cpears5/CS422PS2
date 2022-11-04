@@ -5,4 +5,16 @@
 
 .block {
   outline: 1px solid red;
+  
+}
+#gameContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  gap: 4rem;
+  height: 30rem;
 }

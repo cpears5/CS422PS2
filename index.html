@@ -114,8 +114,13 @@ $(board).on('scoreUpdate', function(e, info)
 });
 
 // Button Events
-$(document).on('click', "#buttonIDhere", function(evt)
+$(document).on('click', "#new", function(evt)
 {
+  // Your code here.
+});
+$(document).on('click', "#newGameButton", function(evt)
+{
+  createGameCubes();
   // Your code here.
 });
 
@@ -144,12 +149,12 @@ const createGameCubes = () => {
 <body>
 
 <div class="container">
-  <div class="row">
+  <!-- <div class="row"> -->
     <div class="col-md-4" id="firstColumn">
       <div>
       <!-- Column 1 Code Here -->
       <h1>Candy Crush</h1>
-      <button onclick={}>New Game</button>
+      <button class="newGameButton" onclick={}>New Game</button>
       </div>
   </div>
 
@@ -161,11 +166,10 @@ const createGameCubes = () => {
 
     <div class="col-md-4" id="lastColumn">
       <!-- Column 3 Code Here -->
-      Column 3
       <label for="move-input">Move: </label>
       <input type="text" name="move-input"/>
     </div>
-  </div> <!-- class="row" -->
+  <!-- </div> class="row" -->
 </div> <!-- class="container" -->
 
 </body>
