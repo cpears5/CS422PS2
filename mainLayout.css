@@ -1,12 +1,10 @@
-.col-md-4 {
-  width: 100%;
-}
 
 .block {
   outline: 1px solid gray;
   width: 12.5%;
   height: auto;
 }
+
 #gameContainer {
   width: 320px;
   height: 320px;
