@@ -118,10 +118,9 @@ $(board).on('scoreUpdate', function(e, info)
 });
 
 // Button Events
-$(document).on('click', '#newGameButton', function(evt)
+$(document).on('click', '', function(evt)
 {
-  console.log('deezz');
-  rules.prepareNewGame();
+  
   // Your code here.
 });
 
@@ -129,7 +128,10 @@ $(document).on('click', '#newGameButton', function(evt)
 $(document).on('keydown', function(evt) {
   // Your code here.
 });
-
+function newGame() {
+  console.log('deezz');
+  rules.prepareNewGame();
+}
 
 
 
@@ -146,7 +148,7 @@ $(document).on('keydown', function(evt) {
       <div>
       <!-- Column 1 Code Here -->
       <h1 style="color: red;">Candy Crush</h1>
-      <button class="btn" id="newGameButton">New Game</button>
+      <button class="btn" id="newGameButton" onclick="newGame()">New Game</button>
       </div>
   </div>
 
