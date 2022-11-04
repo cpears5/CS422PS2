@@ -12,6 +12,8 @@
   height: 20px;
 }
 #gameContainer {
+  width: 320px;
+  height: 320px;
   display: flex;
   flex-wrap: wrap;
 }
