@@ -124,6 +124,17 @@ $(document).on('keydown', function(evt) {
   // Your code here.
 });
 
+const createGameCubes = () => {
+  for (let i=0; i < 64; i ++) {
+    const gameContainer = document.getElementById('game-container');
+    const newBlock = document.createElement('div');
+    newBlock.classList.add('block');
+    gameContainer.appendChild(newBlock);
+
+    // TODO: dynamic innerhtml
+  }
+}
+
 
 </script>
 
@@ -137,23 +148,22 @@ $(document).on('keydown', function(evt) {
     <div class="col-md-4" id="firstColumn">
       <div>
       <!-- Column 1 Code Here -->
-      Column 1
-
+      <h1>Candy Crush</h1>
+      <button onclick={}>New Game</button>
       </div>
   </div>
 
     <div class="col-md-4" id="mainColumn">
-
       <!-- Column 2 Code Here -->
-      Column 2
-
+      <div id="game-container">
+      </div>
     </div>
 
     <div class="col-md-4" id="lastColumn">
-
       <!-- Column 3 Code Here -->
       Column 3
-
+      <label for="move-input">Move: </label>
+      <input type="text" name="move-input"/>
     </div>
   </div> <!-- class="row" -->
 </div> <!-- class="container" -->
