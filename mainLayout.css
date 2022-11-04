@@ -4,8 +4,8 @@
 
 .block {
   outline: 1px solid gray;
-  width: 20px;
-  height: 20px;
+  width: 12.5%;
+  height: 12.5%;
 }
 #gameContainer {
   width: 320px;
