@@ -118,20 +118,13 @@ $(document).on('click', "#new", function(evt)
 {
   // Your code here.
 });
-$(document).on('click', "#newGameButton", function(evt)
-{
-  console.log("dicke");
-
-  createGameCubes();
-  
-});
 
 // keyboard events arrive here
 $(document).on('keydown', function(evt) {
   // Your code here.
 });
 
-const createGameCubes = () => {
+function newGame() {
   for (let i=0; i < 64; i ++) {
     console.log("dicke");
     const gameContainer = document.getElementById('game-container');
@@ -157,7 +150,7 @@ const createGameCubes = () => {
       <div>
       <!-- Column 1 Code Here -->
       <h1>Candy Crush</h1>
-      <button id="newGameButton">New Game</button>
+      <button id="newGameButton" onclick="newGame()">New Game</button>
       </div>
   </div>
 
