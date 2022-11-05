@@ -95,7 +95,8 @@ $(board).on('add', function(e, info)
   const gameContainer = document.getElementById('gameContainer');
   const newBlock = document.createElement('td');
   newBlock.classList.add('block');
-  newBlock.style.color = info.details.candy.color;
+  // newBlock.style.color = info.details.candy.color;
+  newBlock.style.color = 'blue'
   gameContainer.appendChild(newBlock);
   // Your code here.
 });
