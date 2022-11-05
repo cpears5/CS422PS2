@@ -92,6 +92,8 @@ $(document).ready(function()
 $(board).on('add', function(e, info)
 {
   console.log(info.candy);
+  console.log(board.getSize());
+
   const gameContainer = document.getElementById('gameContainer');
   const newBlock = document.createElement('td');
   newBlock.classList.add('block');
@@ -131,9 +133,12 @@ $(document).on('keydown', function(evt) {
 });
 function newGame() {
   // initialize board
-  board = new Board(8);
+  if ($.getUrlVar('size') && $.getUrlVar('size') >= 3) {
+    board = new Board($.getUrlVar('size'));
+  } else {
+    board = new Board(DEFAULT_BOARD_SIZE);
+  }
   rules = new Rules(board);
-  console.log(board.getSize());
 
   rules.prepareNewGame();
 }
