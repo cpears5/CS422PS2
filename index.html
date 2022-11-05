@@ -130,7 +130,12 @@ $(document).on('keydown', function(evt) {
 });
 function newGame() {
   console.log('deezz');
-  prepareNewGame();
+  if(rules === undefined) {
+    if(board === undefined)
+      board = new Board(DEFAULT_BOARD_SIZE);
+    rules = new Rules(board);
+  }
+  rules.prepareNewGame();
 }
 
 
@@ -148,7 +153,7 @@ function newGame() {
       <div>
       <!-- Column 1 Code Here -->
       <h1 style="color: red;">Candy Crush</h1>
-      <button class="btn" id="newGameButton" onclick="prepareNewGame()">New Game</button>
+      <button class="btn" id="newGameButton" onclick='newGame()'>New Game</button>
       </div>
   </div>
 
