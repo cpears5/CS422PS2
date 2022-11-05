@@ -133,11 +133,9 @@ $(document).on('keydown', function(evt) {
 });
 function newGame() {
   // initialize board
-  if ($.getUrlVar('size') && $.getUrlVar('size') >= 3) {
-    board = new Board($.getUrlVar('size'));
-  } else {
-    board = new Board(DEFAULT_BOARD_SIZE);
-  }
+ 
+  board = new Board(DEFAULT_BOARD_SIZE);
+
   rules = new Rules(board);
 
   rules.prepareNewGame();
