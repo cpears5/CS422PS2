@@ -329,8 +329,6 @@ var Rules = function(board)
         if (board.getCandyAt(row, col) == null)
         {
           board.addRandomCandy(row, col);
-        } else {
-          console.log('why no null');
         }
       }
     }
