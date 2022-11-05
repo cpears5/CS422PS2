@@ -17,3 +17,13 @@
   display: flex;
   width: 100%;
 }
+
+.row {
+  display: flex;
+}
+.col-sm-12 {
+  left: 50%;
+}
+.col-sm-6 {
+  left: 25%;
+}
