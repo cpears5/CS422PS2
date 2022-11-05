@@ -129,12 +129,13 @@ $(document).on('keydown', function(evt) {
   // Your code here.
 });
 function newGame() {
-  console.log('deezz');
-  if(rules === undefined) {
-    if(board === undefined)
-      board = new Board(DEFAULT_BOARD_SIZE);
-    rules = new Rules(board);
+  // initialize board
+  if ($.getUrlVar('size') && $.getUrlVar('size') >= 3) {
+    board = new Board($.getUrlVar('size'));
+  } else {
+    board = new Board(DEFAULT_BOARD_SIZE);
   }
+  rules = new Rules(board);
   rules.prepareNewGame();
 }
 
