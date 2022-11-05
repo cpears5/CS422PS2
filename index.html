@@ -91,6 +91,7 @@ $(document).ready(function()
 // add a candy to the board
 $(board).on('add', function(e, info)
 {
+  console.log(board.getSize());
   console.log(info.candy);
   const gameContainer = document.getElementById('gameContainer');
   const newBlock = document.createElement('td');
