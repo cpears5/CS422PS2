@@ -131,10 +131,10 @@ $(document).on('keydown', function(evt) {
 });
 function newGame() {
   // initialize board
- 
-  board = new Board(8);
-
-  rules = new Rules(board);
+  if(board === null)
+    board = new Board(8);
+  if(rules === null)
+    rules = new Rules(board);
 
   rules.prepareNewGame();
 }

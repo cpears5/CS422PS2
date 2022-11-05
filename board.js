@@ -94,9 +94,7 @@ var Board = function(size)
     if (this.isValidLocation(row,col))
     {
       return this.square[row][col];
-    }else {
-        console.log('why no valid');
-      }
+    }
   }
 
   /**
