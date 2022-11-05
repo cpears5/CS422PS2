@@ -91,12 +91,11 @@ $(document).ready(function()
 // add a candy to the board
 $(board).on('add', function(e, info)
 {
-  console.log(info);
+  console.log(info.candy);
   const gameContainer = document.getElementById('gameContainer');
   const newBlock = document.createElement('td');
   newBlock.classList.add('block');
-  // newBlock.style.color = info.details.candy.color;
-  newBlock.style.color = 'blue'
+  newBlock.style.color = info.candy.color;
   gameContainer.appendChild(newBlock);
   // Your code here.
 });
