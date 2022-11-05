@@ -131,7 +131,7 @@ $(document).on('keydown', function(evt) {
 });
 function newGame() {
   // initialize board
-  board = new Board(DEFAULT_BOARD_SIZE);
+  board = new Board(8);
   rules = new Rules(board);
   console.log(board.getSize());
 
