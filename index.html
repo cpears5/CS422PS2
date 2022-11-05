@@ -74,6 +74,35 @@ if ($.getUrlVar('size') && $.getUrlVar('size') >= 3) {
 // load a rule
 rules = new Rules(board);
 
+// Maps numbers to letters
+function numToAlpha(num) {
+	if(num == 0) return 'a';
+	else if(num == 1) return 'b';
+	else if(num == 2) return 'c';
+	else if(num == 3) return 'd';
+	else if(num == 4) return 'e';
+	else if(num == 5) return 'f';
+	else if(num == 6) return 'g';
+	else if(num == 7) return 'h';
+	else if(num == 8) return 'i';
+	else if(num == 9) return 'j';
+	else if(num == 10) return 'k';
+	else if(num == 11) return 'l';
+	else if(num == 12) return 'm';
+	else if(num == 13) return 'n';
+	else if(num == 14) return 'o';
+	else if(num == 15) return 'p';
+	else if(num == 16) return 'q';
+	else if(num == 17) return 'r';
+	else if(num == 18) return 's';
+	else if(num == 19) return 't';
+	else if(num == 20) return 'u';
+	else if(num == 21) return 'v';
+	else if(num == 22) return 'w';
+	else if(num == 23) return 'x';
+	else if(num == 24) return 'y';
+	else if(num == 25) return 'z';
+}
 // Final initialization entry point: the Javascript code inside this block
 // runs at the end of start-up when the page has finished loading.
 $(document).ready(function()
@@ -95,7 +124,10 @@ $(board).on('add', function(e, info)
   const gameContainer = document.getElementById('gameContainer');
   const newBlock = document.createElement('td');
   newBlock.classList.add('block');
-  newBlock.style.color = info.candy.color;
+  newBlock.style.backgroundColor = info.candy.color;
+  const blockCoord = document.createElement('div');
+  blockCoord.textContent = numToAlpha(info.candy.row) + " " + info.candy.col;
+  newBlock.appendChild(blockCoord);
   gameContainer.appendChild(newBlock);
   // Your code here.
 });
