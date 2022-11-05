@@ -12,202 +12,212 @@ Collaborators:
 -->
 
 <head>
-<meta charset="utf-8">
-<title>CandyCrush</title>
+  <meta charset="utf-8">
+  <title>CandyCrush</title>
 
-<!-- Load style sheets -->
-<link rel="stylesheet" href=
-  "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css">
+  <!-- Load style sheets -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css">
 
-<link rel="stylesheet" href="mainLayout.css">
-<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
-<!-- Use mobile-aware viewport -->
-<meta name="viewport" content=
-  "width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="mainLayout.css">
+  <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+  <!-- Use mobile-aware viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!-- Load any supplemental Javascript libraries here -->
-<script src="jquery.js"></script>
-<script src="seedrandom.js"></script>
-<script src="candy.js"></script>
-<script src="board.js"></script>
-<script src="rules.js"></script>
+  <!-- Load any supplemental Javascript libraries here -->
+  <script src="jquery.js"></script>
+  <script src="seedrandom.js"></script>
+  <script src="candy.js"></script>
+  <script src="board.js"></script>
+  <script src="rules.js"></script>
 
-<script>
+  <script>
 
-// By default, the first board loaded by your page will be the same 
-// each time you load (which is accomplished by "seeding" the random
-// number generator. This makes testing (and grading!) easier!
-Math.seedrandom(0);
+    // By default, the first board loaded by your page will be the same 
+    // each time you load (which is accomplished by "seeding" the random
+    // number generator. This makes testing (and grading!) easier!
+    Math.seedrandom(0);
 
-// A short jQuery extension to read query parameters from the URL.
-$.extend({
-  getUrlVars: function() {
-    var vars = [], pair;
-    var pairs = window.location.search.substr(1).split('&');
-    for (var i = 0; i < pairs.length; i++) {
-      pair = pairs[i].split('=');
-      vars.push(pair[0]);
-      vars[pair[0]] = pair[1] &&
-          decodeURIComponent(pair[1].replace(/\+/g, ' '));
+    // A short jQuery extension to read query parameters from the URL.
+    $.extend({
+      getUrlVars: function () {
+        var vars = [], pair;
+        var pairs = window.location.search.substr(1).split('&');
+        for (var i = 0; i < pairs.length; i++) {
+          pair = pairs[i].split('=');
+          vars.push(pair[0]);
+          vars[pair[0]] = pair[1] &&
+            decodeURIComponent(pair[1].replace(/\+/g, ' '));
+        }
+        return vars;
+      },
+      getUrlVar: function (name) {
+        return $.getUrlVars()[name];
+      }
+    });
+
+    // constants
+    const DEFAULT_BOARD_SIZE = 8;
+
+    // data model at global scope for easier debugging
+    var board;
+    var rules;
+
+    // initialize board
+    if ($.getUrlVar('size') && $.getUrlVar('size') >= 3) {
+      board = new Board($.getUrlVar('size'));
+    } else {
+      board = new Board(DEFAULT_BOARD_SIZE);
     }
-    return vars;
-  },
-  getUrlVar: function(name) {
-    return $.getUrlVars()[name];
-  }
-});
 
-// constants
-const DEFAULT_BOARD_SIZE = 8;
-
-// data model at global scope for easier debugging
-var board;
-var rules;
-
-// initialize board
-if ($.getUrlVar('size') && $.getUrlVar('size') >= 3) {
-  board = new Board($.getUrlVar('size'));
-} else {
-  board = new Board(DEFAULT_BOARD_SIZE);
-}
-
-// load a rule
-rules = new Rules(board);
-
-// Maps numbers to letters
-function numToAlpha(num) {
-	if(num == 0) return 'a';
-	else if(num == 1) return 'b';
-	else if(num == 2) return 'c';
-	else if(num == 3) return 'd';
-	else if(num == 4) return 'e';
-	else if(num == 5) return 'f';
-	else if(num == 6) return 'g';
-	else if(num == 7) return 'h';
-	else if(num == 8) return 'i';
-	else if(num == 9) return 'j';
-	else if(num == 10) return 'k';
-	else if(num == 11) return 'l';
-	else if(num == 12) return 'm';
-	else if(num == 13) return 'n';
-	else if(num == 14) return 'o';
-	else if(num == 15) return 'p';
-	else if(num == 16) return 'q';
-	else if(num == 17) return 'r';
-	else if(num == 18) return 's';
-	else if(num == 19) return 't';
-	else if(num == 20) return 'u';
-	else if(num == 21) return 'v';
-	else if(num == 22) return 'w';
-	else if(num == 23) return 'x';
-	else if(num == 24) return 'y';
-	else if(num == 25) return 'z';
-}
-// Final initialization entry point: the Javascript code inside this block
-// runs at the end of start-up when the page has finished loading.
-$(document).ready(function()
-{
-  // Your code here.
-});
-
-
-/* Event Handlers */
-// access the candy object with info.candy
-
-// add a candy to the board
-$(board).on('add', function(e, info)
-{
-  console.log(board.getSize());
-
-  console.log(info.candy);
-
-  const gameContainer = document.getElementById('gameContainer');
-  const newBlock = document.createElement('td');
-  newBlock.classList.add('block');
-  newBlock.style.backgroundColor = info.candy.color;
-  const blockCoord = document.createElement('div');
-  blockCoord.textContent = numToAlpha(info.candy.row) + " " + info.candy.col;
-  newBlock.appendChild(blockCoord);
-  gameContainer.appendChild(newBlock);
-  // Your code here.
-});
-
-// move a candy on the board
-$(board).on('move', function(e, info)
-{
-  // Your code here.
-});
-
-// remove a candy from the board
-$(board).on('remove', function(e, info)
-{
-  // Your code here.
-});
-
-// move a candy on the board
-$(board).on('scoreUpdate', function(e, info)
-{
-  // Your code here. To be implemented in pset 2.
-});
-
-// Button Events
-$(document).on('click', '', function(evt)
-{
-  
-  // Your code here.
-});
-
-// keyboard events arrive here
-$(document).on('keydown', function(evt) {
-  // Your code here.
-});
-function newGame() {
-  // initialize board
-  if(board === null)
-    board = new Board(8);
-  if(rules === null)
+    // load a rule
     rules = new Rules(board);
 
-  rules.prepareNewGame();
-}
+    // Maps numbers to letters
+    function numToAlpha(num) {
+      if (num == 0) return 'a';
+      else if (num == 1) return 'b';
+      else if (num == 2) return 'c';
+      else if (num == 3) return 'd';
+      else if (num == 4) return 'e';
+      else if (num == 5) return 'f';
+      else if (num == 6) return 'g';
+      else if (num == 7) return 'h';
+      else if (num == 8) return 'i';
+      else if (num == 9) return 'j';
+      else if (num == 10) return 'k';
+      else if (num == 11) return 'l';
+      else if (num == 12) return 'm';
+      else if (num == 13) return 'n';
+      else if (num == 14) return 'o';
+      else if (num == 15) return 'p';
+      else if (num == 16) return 'q';
+      else if (num == 17) return 'r';
+      else if (num == 18) return 's';
+      else if (num == 19) return 't';
+      else if (num == 20) return 'u';
+      else if (num == 21) return 'v';
+      else if (num == 22) return 'w';
+      else if (num == 23) return 'x';
+      else if (num == 24) return 'y';
+      else if (num == 25) return 'z';
+    }
+    // Final initialization entry point: the Javascript code inside this block
+    // runs at the end of start-up when the page has finished loading.
+    $(document).ready(function () {
+      // Your code here.
+    });
+
+
+    /* Event Handlers */
+    // access the candy object with info.candy
+
+    // add a candy to the board
+    $(board).on('add', function (e, info) {
+      console.log(board.getSize());
+
+      console.log(info.candy);
+
+      const gameContainer = document.getElementById('gameContainer');
+      const newBlock = document.createElement('td');
+      newBlock.classList.add('block');
+      newBlock.style.backgroundColor = info.candy.color;
+      const blockCoord = document.createElement('div');
+      blockCoord.textContent = numToAlpha(info.candy.row) + " " + info.candy.col;
+      newBlock.appendChild(blockCoord);
+      gameContainer.appendChild(newBlock);
+      // Your code here.
+    });
+
+    // move a candy on the board
+    $(board).on('move', function (e, info) {
+      // Your code here.
+    });
+
+    // remove a candy from the board
+    $(board).on('remove', function (e, info) {
+      // Your code here.
+    });
+
+    // move a candy on the board
+    $(board).on('scoreUpdate', function (e, info) {
+      // Your code here. To be implemented in pset 2.
+    });
+
+    // Button Events
+    $(document).on('click', '', function (evt) {
+
+      // Your code here.
+    });
+
+    // keyboard events arrive here
+    $(document).on('keydown', function (evt) {
+      // Your code here.
+    });
+    function newGame() {
+      // initialize board
+      if (board === null)
+        board = new Board(8);
+      if (rules === null)
+        rules = new Rules(board);
+
+      rules.prepareNewGame();
+      document.getElementById('candyInput').value
+    }
 
 
 
-</script>
+  </script>
 
 
 </head>
 
 <body>
 
-<div class="container">
-  <!-- <div class="row"> -->
-    <div class="col-md-3" id="firstColumn">
-      <div>
-      <!-- Column 1 Code Here -->
-      <h1 style="color: red;">Candy Crush</h1>
-      <button class="btn" id="newGameButton" onclick='newGame()'>New Game</button>
-      </div>
-  </div>
-
-    <div class="col-md-6" id="mainColumn">
-      <!-- Column 2 Code Here -->
-      <table id="gameContainer">
-      </table>
+  <div class="container">
+ 
+      <div class="col-md-3" id="firstColumn">
+        <div>
+        <!-- Column 1 Code Here -->
+        <h1 style="color: red;">Candy Crush</h1>
+        <button class="btn" id="newGameButton" onclick='newGame()'>New Game</button>
+        </div>
     </div>
-
-    <div class="col-md-3" id="lastColumn">
-      <!-- Column 3 Code Here -->
-      <label for="move-input">Move: </label>
-      <input type="text" name="move-input"/>
-      <div class="row">
-        <div class ="col-md-12">
-          <button style='font-size:24px' type="button" id="upArrow"><i class="fas fa-arrow-right"></i></button>
+  
+      <div class="col-md-6" id="mainColumn">
+        <!-- Column 2 Code Here -->
+        <table id="gameContainer">
+        </table>
+      </div>
+  
+      <div class="col-md-3" id="lastColumn">
+        <!-- Column 3 Code Here -->
+        <label for="move-input">Move: </label>
+        <input type="text" name="move-input"/>
+        <div class="row">
+          <div class ="col-sm-12">
+            <button style='font-size:24px' type="button" id="upArrow"><i class="fas fa-arrow-up"></i></button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <button style='font-size:24px' type="button" id="leftArrow"><i class="fas fa-arrow-left"></i></button>
+          </div>
+          <div class="col-sm-6">
+            <button style='font-size:24px' type="button" id="rightArrow"><i class="fas fa-arrow-right"></i></button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <button style='font-size:24px' type="button" id="downArrow"><i class="fas fa-arrow-down"></i></button>
+          </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <button class="btn" id="crushButton">Crush Once</button>
+             </div>
+          </div>  
         </div>
       </div>
-    </div>
-  <!-- </div> class="row" -->
-</div> <!-- class="container" -->
+  </div>
 
 </body>
 
