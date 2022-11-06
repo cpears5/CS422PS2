@@ -218,9 +218,10 @@ Collaborators:
       }
       document.getElementById('candyInput').value = ''
       document.getElementById('candyInput').focus();
-      if (rules.getCandyCrushes().length > 0)
+      if (rules.getCandyCrushes().length > 0) {
         document.getElementById('crushButton').removeAttribute('disabled');
-      else
+        document.getElementById('crushButton').style.backgroundColor = 'lightblue';
+      } else
         document.getElementById('crushButton').setAttribute('disabled', '');
     }
 
@@ -267,9 +268,10 @@ Collaborators:
           arrows[i].style.backgroundColor = 'lightgray';
         }
         document.getElementById('candyInput').focus();
-        if (rules.getCandyCrushes().length > 0)
+        if (rules.getCandyCrushes().length > 0) {
           document.getElementById('crushButton').removeAttribute('disabled');
-        else
+          document.getElementById('crushButton').style.backgroundColor = 'lightblue';
+        } else
           document.getElementById('crushButton').setAttribute('disabled', '');
       }, 500);
       
