@@ -72,7 +72,6 @@ Collaborators:
     // load a rule
     rules = new Rules(board);
 
-    // Maps numbers to letters
     function numToAlpha(num) {
       if (num == 0) return 'a';
       else if (num == 1) return 'b';
@@ -101,6 +100,34 @@ Collaborators:
       else if (num == 24) return 'y';
       else if (num == 25) return 'z';
     }
+    function alphaToNum(alpha) {
+      if (alpha == 'a') return 0;
+      else if (alpha == 'b') return 1;
+      else if (alpha == 'c') return 2;
+      else if (alpha == 'd') return 3;
+      else if (alpha == 'e') return 4;
+      else if (alpha == 'f') return 5;
+      else if (alpha == 'g') return 6;
+      else if (alpha == 'h') return 7;
+      else if (alpha == 'i') return 8;
+      else if (alpha == 'j') return 9;
+      else if (alpha == 'k') return 10;
+      else if (alpha == 'l') return 11;
+      else if (alpha == 'm') return 12;
+      else if (alpha == 'n') return 13;
+      else if (alpha == 'o') return 14;
+      else if (alpha == 'p') return 15;
+      else if (alpha == 'q') return 16;
+      else if (alpha == 'r') return 17;
+      else if (alpha == 's') return 18;
+      else if (alpha == 't') return 19;
+      else if (alpha == 'u') return 20;
+      else if (alpha == 'v') return 21;
+      else if (alpha == 'w') return 22;
+      else if (alpha == 'x') return 23;
+      else if (alpha == 'y') return 24;
+      else if (alpha == 'z') return 25;
+    }
     // Final initialization entry point: the Javascript code inside this block
     // runs at the end of start-up when the page has finished loading.
     $(document).ready(function () {
@@ -113,29 +140,42 @@ Collaborators:
 
     // add a candy to the board
     $(board).on('add', function (e, info) {
-      console.log(board.getSize());
-
-      console.log(info.candy);
 
       const gameContainer = document.getElementById('gameContainer');
-      const newBlock = document.createElement('td');
-      newBlock.classList.add('block');
+      var newBlock;
+      if (document.getElementsByClassName(info.candy.row + "" + info.candy.col).length > 0) {
+        newBlock = document.getElementsByClassName(info.candy.row + "" + info.candy.col)[0];
+      } else {
+        newBlock = document.createElement('td');
+        newBlock.classList.add('block');
+        newBlock.classList.add(info.candy.row + "" + info.candy.col);
+        const blockCoord = document.createElement('div');
+        blockCoord.textContent = numToAlpha(info.candy.row) + "" + info.candy.col;
+        newBlock.appendChild(blockCoord);
+        gameContainer.appendChild(newBlock);
+
+      }
+
       newBlock.style.backgroundColor = info.candy.color;
-      const blockCoord = document.createElement('div');
-      blockCoord.textContent = numToAlpha(info.candy.row) + " " + info.candy.col;
-      newBlock.appendChild(blockCoord);
-      gameContainer.appendChild(newBlock);
+
       // Your code here.
     });
 
     // move a candy on the board
     $(board).on('move', function (e, info) {
+      var candy = info.candy;
+      var block = (document.getElementsByClassName(candy.row + "" + candy.col))[0];
+      block.style.backgroundColor = candy.color;
+
       // Your code here.
     });
 
     // remove a candy from the board
     $(board).on('remove', function (e, info) {
-      // Your code here.
+      var candy = info.candy;
+      console.log('removed candy at ' + candy.row + "," + candy.col);
+      var block = (document.getElementsByClassName(candy.row + "" + candy.col))[0];
+      block.style.backgroundColor = 'lightgray';
     });
 
     // move a candy on the board
@@ -161,7 +201,81 @@ Collaborators:
         rules = new Rules(board);
 
       rules.prepareNewGame();
-      document.getElementById('candyInput').value
+    }
+    function arrowClicked(dir) {
+      var candyLoc = document.getElementById('candyInput').value;
+      if (candyLoc !== '') {
+        var fromCandy = board.getCandyAt(alphaToNum(candyLoc.at(0)), Number(candyLoc.at(1)));
+        var valid = rules.isMoveTypeValid(fromCandy, dir);
+        console.log(candyLoc.at(0) + ", " + candyLoc.at(1) + dir + " is " + valid);
+        if (valid) {
+          var toCandy = board.getCandyInDirection(fromCandy, dir);
+
+          console.log("from candy: " + fromCandy.color + " " + fromCandy.row + " " + fromCandy.col);
+          console.log("to candy: " + toCandy.color + " " + toCandy.row + " " + toCandy.col);
+
+          board.flipCandies(fromCandy, toCandy);
+        }
+      }
+      var arrows = document.getElementsByClassName('arrow');
+      for (var i = 0; i < 4; i++) {
+        arrows[i].setAttribute('disabled', '');
+        arrows[i].style.backgroundColor = 'lightgray';
+      }
+      document.getElementById('candyInput').value = ''
+      document.getElementById('candyInput').focus();
+      console.log(rules.getCandyCrushes().length);
+      if (rules.getCandyCrushes().length > 0)
+        document.getElementById('crushButton').removeAttribute('disabled');
+      else
+        document.getElementById('crushButton').setAttribute('disabled', '');
+    }
+
+    function check() {
+
+      var inputVal = document.getElementById('candyInput').value;
+      var arrows = document.getElementsByClassName('arrow');
+      console.log(inputVal);
+      if (inputVal == '' || inputVal.length > 2 || !isNaN(inputVal.at(0)) || isNaN(inputVal.at(1)))
+        for (var i = 0; i < 4; i++) {
+          arrows[i].setAttribute('disabled', '');
+          arrows[i].style.backgroundColor = 'lightgray';
+        }
+      else {
+        var fromCandy = board.getCandyAt(alphaToNum(inputVal.at(0)), Number(inputVal.at(1)));
+        if (fromCandy !== undefined) {
+          if (rules.isMoveTypeValid(fromCandy, 'up')) {
+            arrows[0].removeAttribute('disabled');
+            arrows[0].style.backgroundColor = 'lightblue';
+          }
+          if (rules.isMoveTypeValid(fromCandy, 'left')) {
+            arrows[1].removeAttribute('disabled');
+            arrows[1].style.backgroundColor = 'lightblue';
+          }
+          if (rules.isMoveTypeValid(fromCandy, 'right')) {
+            arrows[2].removeAttribute('disabled');
+            arrows[2].style.backgroundColor = 'lightblue';
+          }
+          if (rules.isMoveTypeValid(fromCandy, 'down')) {
+            arrows[3].removeAttribute('disabled');
+            arrows[3].style.backgroundColor = 'lightblue';
+          }
+        }
+      }
+    }
+
+    function crush() {
+      document.getElementById('crushButton').setAttribute('disabled', '');
+      rules.removeCrushes(rules.getCandyCrushes());
+      setTimeout(function () {
+        rules.moveCandiesDown();
+      }, 500);
+      var arrows = document.getElementsByClassName('arrow');
+      for (var i = 0; i < 4; i++) {
+        arrows[i].setAttribute('disabled', '');
+        arrows[i].style.backgroundColor = 'lightgray';
+      }
+
     }
 
 
@@ -174,49 +288,53 @@ Collaborators:
 <body>
 
   <div class="container">
- 
-      <div class="col-md-3" id="firstColumn">
-        <div>
+    <!-- <div class="row"> -->
+    <div class="col-md-3" id="firstColumn">
+      <div>
         <!-- Column 1 Code Here -->
         <h1 style="color: red;">Candy Crush</h1>
         <button class="btn" id="newGameButton" onclick='newGame()'>New Game</button>
-        </div>
-    </div>
-  
-      <div class="col-md-6" id="mainColumn">
-        <!-- Column 2 Code Here -->
-        <table id="gameContainer">
-        </table>
       </div>
-  
-      <div class="col-md-3" id="lastColumn">
-        <!-- Column 3 Code Here -->
-        <label for="move-input">Move: </label>
-        <input type="text" name="move-input"/>
-        <div class="row">
-          <div class ="col-sm-12">
-            <button style='font-size:24px' type="button" id="upArrow"><i class="fas fa-arrow-up"></i></button>
-          </div>
+    </div>
+
+    <div class="col-md-6" id="mainColumn">
+      <!-- Column 2 Code Here -->
+      <table id="gameContainer">
+      </table>
+    </div>
+
+    <div class="col-md-3" id="lastColumn">
+      <!-- Column 3 Code Here -->
+      <label for="move-input">Move: </label>
+      <input id="candyInput" type="text" name="move-input" onkeyup="check()" />
+      <div class="row">
+        <div class="col-sm-12">
+          <button style='font-size:24px' type="button" id="upArrow" onclick="arrowClicked('up')" class="arrow"
+            disabled><i class="fas fa-arrow-up"></i></button>
         </div>
-        <div class="row">
-          <div class="col-sm-6">
-            <button style='font-size:24px' type="button" id="leftArrow"><i class="fas fa-arrow-left"></i></button>
-          </div>
-          <div class="col-sm-6">
-            <button style='font-size:24px' type="button" id="rightArrow"><i class="fas fa-arrow-right"></i></button>
-          </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <button style='font-size:24px' type="button" id="leftArrow" onclick="arrowClicked('left')" class="arrow"
+            disabled><i class="fas fa-arrow-left"></i></button>
+        </div>
+        <div class="col-sm-6">
+          <button style='font-size:24px' type="button" id="rightArrow" onclick="arrowClicked('right')" class="arrow"
+            disabled><i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <button style='font-size:24px' type="button" id="downArrow" onclick="arrowClicked('down')" class="arrow"
+            disabled><i class="fas fa-arrow-down"></i></button>
         </div>
         <div class="row">
           <div class="col-sm-12">
-            <button style='font-size:24px' type="button" id="downArrow"><i class="fas fa-arrow-down"></i></button>
+            <button class="btn" id="crushButton" onclick="crush()" disabled>Crush Once</button>
           </div>
-            <div class="row">
-              <div class="col-sm-12">
-                <button class="btn" id="crushButton">Crush Once</button>
-             </div>
-          </div>  
         </div>
       </div>
+    </div>
   </div>
 
 </body>
