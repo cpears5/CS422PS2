@@ -266,11 +266,13 @@ Collaborators:
           arrows[i].setAttribute('disabled', '');
           arrows[i].style.backgroundColor = 'lightgray';
         }
+        document.getElementById('candyInput').focus();
         if (rules.getCandyCrushes().length > 0)
           document.getElementById('crushButton').removeAttribute('disabled');
         else
           document.getElementById('crushButton').setAttribute('disabled', '');
       }, 500);
+      
 
     }
 

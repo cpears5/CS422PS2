@@ -21,15 +21,15 @@
 
 .row {
   display: grid;
-  
-  }
-  .col-sm-12 {
-    left: 50%;
-  }
-  .col-sm-6 {
-    left: 25%;
-  }
-  .arrow{
-    background-color: lightgray;
-  }
+}
+
+.col-sm-12 {
+  left: 50%;
+}
+/* .col-sm-6 {
+  left: 25%;
+} */
+.arrow{
+  background-color: lightgray;
+}
   
