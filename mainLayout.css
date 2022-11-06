@@ -1,8 +1,8 @@
 
 .block {
   outline: 1px solid gray;
-  width: 12.5%;
-  height: auto;
+  width: auto;
+  height: 12.5%;
 }
 
 #gameContainer {
@@ -10,6 +10,7 @@
   height: 320px;
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
   outline: 1px dashed orange;
 }
 
@@ -19,11 +20,16 @@
 }
 
 .row {
-  display: flex;
-}
-.col-sm-12 {
-  left: 50%;
-}
-.col-sm-6 {
-  left: 25%;
-}
+  display: grid;
+  
+  }
+  .col-sm-12 {
+    left: 50%;
+  }
+  .col-sm-6 {
+    left: 25%;
+  }
+  .arrow{
+    background-color: lightgray;
+  }
+  
