@@ -261,12 +261,16 @@ Collaborators:
       rules.removeCrushes(rules.getCandyCrushes());
       setTimeout(function () {
         rules.moveCandiesDown();
+        var arrows = document.getElementsByClassName('arrow');
+        for (var i = 0; i < 4; i++) {
+          arrows[i].setAttribute('disabled', '');
+          arrows[i].style.backgroundColor = 'lightgray';
+        }
+        if (rules.getCandyCrushes().length > 0)
+          document.getElementById('crushButton').removeAttribute('disabled');
+        else
+          document.getElementById('crushButton').setAttribute('disabled', '');
       }, 500);
-      var arrows = document.getElementsByClassName('arrow');
-      for (var i = 0; i < 4; i++) {
-        arrows[i].setAttribute('disabled', '');
-        arrows[i].style.backgroundColor = 'lightgray';
-      }
 
     }
 
