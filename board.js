@@ -194,8 +194,8 @@ var Board = function(size)
       fromCol: candy.col
     };
     delete this.square[candy.row][candy.col];
-    candy.row = candy.col = null;
     $(this).triggerHandler("remove", details);
+    candy.row = candy.col = null;
   }
 
   /**

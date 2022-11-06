@@ -173,7 +173,6 @@ Collaborators:
     // remove a candy from the board
     $(board).on('remove', function (e, info) {
       var candy = info.candy;
-      console.log('removed candy at ' + candy.row + "," + candy.col);
       var block = (document.getElementsByClassName(candy.row + "" + candy.col))[0];
       block.style.backgroundColor = 'lightgray';
     });
@@ -199,7 +198,7 @@ Collaborators:
         board = new Board(8);
       if (rules === null)
         rules = new Rules(board);
-
+      board.clear();
       rules.prepareNewGame();
     }
     function arrowClicked(dir) {
@@ -207,13 +206,8 @@ Collaborators:
       if (candyLoc !== '') {
         var fromCandy = board.getCandyAt(alphaToNum(candyLoc.at(0)), Number(candyLoc.at(1)));
         var valid = rules.isMoveTypeValid(fromCandy, dir);
-        console.log(candyLoc.at(0) + ", " + candyLoc.at(1) + dir + " is " + valid);
         if (valid) {
           var toCandy = board.getCandyInDirection(fromCandy, dir);
-
-          console.log("from candy: " + fromCandy.color + " " + fromCandy.row + " " + fromCandy.col);
-          console.log("to candy: " + toCandy.color + " " + toCandy.row + " " + toCandy.col);
-
           board.flipCandies(fromCandy, toCandy);
         }
       }
@@ -224,7 +218,6 @@ Collaborators:
       }
       document.getElementById('candyInput').value = ''
       document.getElementById('candyInput').focus();
-      console.log(rules.getCandyCrushes().length);
       if (rules.getCandyCrushes().length > 0)
         document.getElementById('crushButton').removeAttribute('disabled');
       else
@@ -235,7 +228,6 @@ Collaborators:
 
       var inputVal = document.getElementById('candyInput').value;
       var arrows = document.getElementsByClassName('arrow');
-      console.log(inputVal);
       if (inputVal == '' || inputVal.length > 2 || !isNaN(inputVal.at(0)) || isNaN(inputVal.at(1)))
         for (var i = 0; i < 4; i++) {
           arrows[i].setAttribute('disabled', '');
