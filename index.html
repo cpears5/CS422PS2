@@ -221,8 +221,10 @@ Collaborators:
       if (rules.getCandyCrushes().length > 0) {
         document.getElementById('crushButton').removeAttribute('disabled');
         document.getElementById('crushButton').style.backgroundColor = 'lightblue';
-      } else
+      } else {
         document.getElementById('crushButton').setAttribute('disabled', '');
+        document.getElementById('crushButton').style.backgroundColor = 'lightblue';
+      }
     }
 
     function check() {
@@ -269,17 +271,14 @@ Collaborators:
         }
         document.getElementById('candyInput').focus();
         if (rules.getCandyCrushes().length > 0) {
-          document.getElementById('crushButton').removeAttribute('disabled');
-          document.getElementById('crushButton').style.backgroundColor = 'lightblue';
-        } else
-          document.getElementById('crushButton').setAttribute('disabled', '');
+        document.getElementById('crushButton').removeAttribute('disabled');
+        document.getElementById('crushButton').style.backgroundColor = 'lightblue';
+        } else {
+        document.getElementById('crushButton').setAttribute('disabled', '');
+        document.getElementById('crushButton').style.backgroundColor = 'lightblue';
+        }
       }, 500);
-      
-
     }
-
-
-
   </script>
 
 
